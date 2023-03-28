@@ -1,0 +1,40 @@
+"Is it possible for a Cinnamon applet to display desklets even when they weren't added in the desktop, so this applet could itself act as a separate desklet container?"
+
+Yes, it is possible for a Cinnamon applet to display desklets even when they were not added to the desktop. In fact, there are some applets in Cinnamon that serve as desklet containers, such as the "Desklet Switcher" applet.
+
+To achieve this, you can use the St.Bin object in your applet's code. The St.Bin object is a container object that can hold other objects, including desklets.
+
+You can create a St.Bin object in your applet's init() function and add it to the applet's container using the this.actor.add_child() method. Then, you can create a desklet object and add it to the St.Bin object using the add() method of the DeskletManager object.
+
+Here's some sample code to illustrate this:
+
+const { St, Clutter } = imports.gi;
+const Main = imports.ui.main;
+const DeskletManager = imports.ui.deskletManager;
+
+let deskletBin;
+
+function init() {
+    // Create a new St.Bin object to hold desklets
+    deskletBin = new St.Bin({ style_class: 'desklet-bin' });
+    
+    // Add the desklet bin to the applet container
+    this.actor.add_child(deskletBin);
+}
+
+function enable() {
+    // Get the list of desklets
+    let desklets = DeskletManager.get_desklets();
+    
+    // Add each desklet to the desklet bin
+    for (let i = 0; i < desklets.length; i++) {
+        deskletBin.add(desklets[i]);
+    }
+}
+
+function disable() {
+    // Remove all desklets from the desklet bin
+    deskletBin.remove_all_children();
+}
+
+This code creates a St.Bin object in the applet's init() function and adds it to the applet's container. In the enable() function, it gets a list of all the desklets using the get_desklets() method of the DeskletManager object and adds each desklet to the St.Bin object using the add() method. In the disable() function, it removes all the desklets from the St.Bin object.
