@@ -1,0 +1,9 @@
+{
+ "uuid": "widgets@floflis",
+ "name": "Show Desklets",
+ "description": "Click to display the widgets/desklets",
+ "icon": "cs-desklets",
+ "contributors": "Daniella Mesquita",
+ "author": "Floflis DAO",
+ "max-instances": -1
+}
